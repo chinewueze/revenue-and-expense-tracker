@@ -1,0 +1,11 @@
+{
+    {
+        "name": "Safe PAY TRACK APP",
+        "short_name": "Safe PAY TRACK APP",
+        "theme_color": "#000000",
+        "background_color": "#5f7fd1",
+        "display": "standalone",
+        "scope": "/",
+        "start_url": "/"
+      }
+}
