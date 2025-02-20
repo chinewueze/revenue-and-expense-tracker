@@ -106,7 +106,7 @@ export const Header = () => {
                     <ul className=" py-2 flex space-x-3 mx-[10%]">
                         <li>
                             <Link to="/"
-                                className={` hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110`}
+                                className={`${location.pathname==="/" ? "text-yellow-600": ""} hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110`}
                             >
                                 Home
                             </Link>
@@ -114,7 +114,7 @@ export const Header = () => {
                         <li>
                             <Link
                                 to="/revenue"
-                                className={`text-yellow-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110 `}
+                                className={`${location.pathname==="/revenue" ? "text-yellow-600": ""} text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110 `}
                             >
                                 Revenue 
                             </Link>
@@ -122,7 +122,7 @@ export const Header = () => {
                         <li>
                             <Link
                                 to="/expenses"
-                                className={`hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110 `}
+                                className={`${location.pathname==="/expenses" ? "text-yellow-600": ""}hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110 `}
                             >
                                 Expenses
                             </Link>
@@ -130,7 +130,7 @@ export const Header = () => {
                         <li>
                             <Link
                                 to="/reports"
-                                className={` hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110`}
+                                className={`${location.pathname==="/reports" ? "text-yellow-600": ""} hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110`}
                             >
                                 Reports
                             </Link>
