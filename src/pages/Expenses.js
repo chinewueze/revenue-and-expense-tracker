@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
 import axios from "axios";
+import { api } from "../utils/mkReq";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 export const Expense = () => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
     const [category, setCategory] = useState("");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
@@ -15,12 +14,6 @@ export const Expense = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalDisplayDuration] = useState(4500);
     const [isOnline, setIsOnline] = useState(true);
-    const baseUrl = "https://revenue-and-expense-tracking-api.onrender.com";
-    const endpoint = "/capture/expenses";
-    const apiKey = "85610977-daf5-438b-8263-9e6388ae1651";
-    const toggleNavbar = () => {
-        setIsCollapsed(!isCollapsed);
-    };
     const checkNetworkStatus = () => {
         setIsOnline(window.navigator.onLine);
     };
@@ -62,9 +55,9 @@ export const Expense = () => {
         const newExpenseEntry = { category, amount, date };
         setIsLoading(true);
         try {
-            const response = await axios.post(`${baseUrl}${endpoint}`, newExpenseEntry, {
+            const response = await axios.post(`${api.baseUrl}/capture/expenses`, newExpenseEntry, {
                 headers: {
-                    "Authorization": `ApiKey ${apiKey}`
+                    "Authorization": `ApiKey ${api.apiKey}`
                 }
             });
             setIsModalOpen(true);
@@ -109,140 +102,6 @@ export const Expense = () => {
                     )}
                 </div>
             )}
-
-            <header className=" bg-gray-800 text-white">
-                <div className=" flex items-center py-5 w-full ">
-                    <div className="flex items-center  w-[15%] ml-[3%]  ">
-                        <img src="assets/Images/logo.png" className="h-[8vh] rounded-full" />
-                    </div>
-                    <div className="  w-[65%]  ml-[5%] mr-[10%]">
-                        <h2 className="font-bold text-2xl text-center "> St Louis Catholic Church </h2>
-                    </div>
-                    <div className="hidden lg:flex space-x-5 ml-[2%] mr-[5%]">
-                        <Link to="/"
-                            className={` hover:text-yellow-600 text-base font-medium delay-150 duration-700 ease-in-out hover:scale-x-110`}
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            to="/revenue"
-                            className={` hover:text-yellow-600 text-base font-medium delay-150 duration-700 ease-in-out hover:scale-x-110`}
-                        >
-                            Revenue
-                        </Link>
-                        <Link
-                            to="/expenses"
-                            className={` text-yellow-600 text-base font-medium delay-150 duration-700 ease-in-out hover:scale-x-110`}
-                        >
-                            Expenses
-                        </Link>
-                        <Link
-                            to="/reports"
-                            className={`hover:text-yellow-600 text-base font-medium delay-150 duration-700 ease-in-out hover:scale-x-110`}
-                        >
-                            Reports
-                        </Link>
-                    </div>
-                    <div className="lg:hidden">
-                        <button
-                            className="text-primary-100 p-2 focus:outline-none text-white mx-3"
-                            onClick={toggleNavbar}
-                        >
-                            {isCollapsed ? (
-                                <svg
-                                    className={`w-6 h-6 ${isCollapsed ? "hidden" : ""}`}
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            ) : (
-                                <svg
-                                    className={`w-6 h-6`}
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
-                </div>
-                {isCollapsed && (
-                    <div className="fixed inset-0 flex justify-end">
-                        <div className={`w-[90%] bg-black h-[18vh]`}>
-                            <div className="flex justify-end p-4 ">
-                                <button
-                                    className={` hover:text-blue-700 focus:outline-none`}
-                                    onClick={toggleNavbar}
-                                >
-                                    <svg
-                                        className="w-6 h-6"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                            <ul className=" py-2 flex space-x-3 mx-[10%]">
-                                <li>
-                                    <Link to="/"
-                                        className={` hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110`}
-                                    >
-                                        Home
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/revenue"
-                                        className={`hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110 `}
-                                    >
-                                        Revenue
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/expenses"  
-                                        className= {`text-yellow-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110 `}
-                                    >
-                                        Expenses
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/reports"
-                                        className={` hover:text-blue-700 text-base font-medium block py-2 delay-150 duration-700 ease-in-out hover:scale-x-110`}
-                                    >
-                                        Reports
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                )}
-            </header>
             <main className=" h-[85vh] bg-blue-50  ">
                 <section className="pt-[7%] pb-[5%]">
                     <p className="text-xl text-center font-semibold font-serif ">
@@ -361,11 +220,6 @@ export const Expense = () => {
                     </form>
                 </section>
             </main>
-            <footer className="w-screen text-lg font-semibold">
-                <p className="text-center ">
-                    &copy; 2023 SafePAY by <span className="text-pink-800"> Instant Deposit Limited </span>
-                </p>
-            </footer>
         </div>
     )
 }
